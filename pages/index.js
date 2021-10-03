@@ -12,6 +12,8 @@ export default function Home({ data = [] }) {
             </Head>
             <section className={utilStyles.headingMd}>
                 <Link href="/pokemon">Pokedex</Link>
+                <br />
+                <Link href="/test">Test</Link>
             </section>
         </Layout>
     )

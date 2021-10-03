@@ -11,6 +11,7 @@ const getPokemonList = async (page = 1) => {
     })
     return data
 }
+
 const getPokemon = async id => {
     const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then(response => response.json())
     return data

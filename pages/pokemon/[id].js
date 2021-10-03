@@ -1,6 +1,6 @@
-import { styled } from '@mui/material/styles'
+// import { styled } from '@mui/material/styles'
 
-import Box from '@mui/material/Box'
+// import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Chip from '@mui/material/Chip'
+import { getPokemon } from '@api/pokemonProvider'
 import Layout from '../../components/layout'
 
 export default function Pokemon({ pokemon }) {
@@ -59,7 +60,7 @@ export default function Pokemon({ pokemon }) {
 export async function getServerSideProps(ctx) {
     const { params } = ctx
     // Fetch necessary data for the blog post using params.id
-    const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${params.id}`).then(response => response.json())
+    const data = await getPokemon(params.id)
     return {
         props: {
             pokemon: data
