@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Container from '@mui/material/Container'
+import Container from '@mui/material/Container';
+import MenuAppBar from '@components/menu'
 import styles from './layout.module.css'
 
 export const siteTitle = 'Human - Pokedex'
@@ -21,7 +22,7 @@ export default function Layout({ children, home }) {
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <header className={styles.header} />
+            <MenuAppBar />
             <main>{children}</main>
             {!home && (
                 <div className={styles.backToHome}>
