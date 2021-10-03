@@ -105,13 +105,13 @@
             }
         ],
         "react/prop-types": [
-            "never",
+            "off",
             {
                 "ignore": ["children", "style", "forwardRef", "ref", "classes", "className", "map"]
             }
         ],
         "no-unused-vars": [
-            "warn",
+            "error",
             {
                 "vars": "local",
                 "args": "none",
