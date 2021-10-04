@@ -34,6 +34,8 @@ export default function Home({ data = [] }) {
                 <Link href="/pokemon">Pokedex</Link>
                 <br />
                 <Link href="/test">Test</Link>
+                <br />
+                <Link href="/protected">Protected</Link>
             </section>
         </Layout>
     )
