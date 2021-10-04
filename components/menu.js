@@ -1,6 +1,7 @@
 // import { useState } from 'react'
 
 import { signIn, signOut, useSession } from 'next-auth/client'
+import Link from 'next/link'
 
 import { AppBar, Box, Toolbar, Typography, IconButton, Button, Grid } from '@mui/material'
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material'
@@ -30,7 +31,7 @@ export default function MenuAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                         <Link href="/">Home</Link>
+                        <Link href="/">Home</Link>
                     </Typography>
                     {loading ? (
                         <p>loading...</p>
