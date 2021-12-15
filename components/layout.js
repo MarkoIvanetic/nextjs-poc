@@ -1,36 +1,32 @@
-import Head from 'next/head'
+import React from 'react'
 import Link from 'next/link'
-import Container from '@mui/material/Container';
-import MenuAppBar from '@components/menu'
-import styles from './layout.module.css'
 
-export const siteTitle = 'Human - Pokedex'
-
-export default function Layout({ children, home }) {
-    return (
-        <Container>
-            <Head>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content="Learn how to build a personal website using Next.js" />
-                <meta
-                    property="og:image"
-                    content={`https://og-image.vercel.app/${encodeURI(
-                        siteTitle
-                        // eslint-disable-next-line max-len
-                    )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-                />
-                <meta name="og:title" content={siteTitle} />
-                <meta name="twitter:card" content="summary_large_image" />
-            </Head>
-            <MenuAppBar />
-            <main>{children}</main>
-            {!home && (
-                <div className={styles.backToHome}>
-                    <Link href="/">
-                        <a>← Back to home</a>
-                    </Link>
-                </div>
-            )}
-        </Container>
-    )
+const navigationStyle = {
+    background: "#d9dddc",
+    padding: "10px 5px"
 }
+
+const mainContainerStyle = {
+    marginTop: "15px",
+    padding: "10px 5px"
+}
+
+const Layout = ({ children }) => {
+	return (
+		<div>
+			<div style={navigationStyle}>
+				<h1>Project name placeholder</h1>
+				<ul>
+					<li>
+						<Link href='/events'>Events</Link>
+					</li>
+				</ul>
+			</div>
+            <div style={mainContainerStyle}>
+			    {children}
+            </div>
+		</div>
+	)
+}
+
+export default Layout
