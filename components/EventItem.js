@@ -14,10 +14,10 @@ const EventItem = ({ event }) => {
 		month: 'long',
 		year: 'numeric',
 	})
-
+	console.log(event.image);
 	return (
 		<li className={classes.item}>
-			<img src={event.image} alt={event.title} />
+			<img src={'/' + event.image} alt={event.title} />
 			<div className={classes.content}>
 				<div className={classes.summary}>
 					<h2>{event.title}</h2>
@@ -30,8 +30,8 @@ const EventItem = ({ event }) => {
 						<address>Matije Slatinskog 4</address>
 					</div>
 				</div>
-				<div>
-					<Button href={{ pathname: 'events/[slug]', query: { slug: event.slug } }}>
+				<div className={classes.itemButton}>
+					<Button href={{ pathname: '/events/[slug]', query: { slug: event.slug } }}>
 						<span>Explore event</span>
 						<span className={classes.icon}>
 							<ArrowRightIcon />
