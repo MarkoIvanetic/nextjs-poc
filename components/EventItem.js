@@ -31,7 +31,7 @@ const EventItem = ({ event }) => {
 					</div>
 				</div>
 				<div className={classes.itemButton}>
-					<Button href={{ pathname: '/events/[slug]', query: { slug: event.slug } }}>
+					<Button href={{ pathname: '/events/[id]', query: { id: event.id } }}>
 						<span>Explore event</span>
 						<span className={classes.icon}>
 							<ArrowRightIcon />

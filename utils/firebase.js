@@ -1,17 +1,19 @@
 const EventsRealtimeDatabaseUrl = 'https://nextjs-9fc15-default-rtdb.europe-west1.firebasedatabase.app/'
 
-const getEvents = () => {
+const getEvents = async () => {
   return await fetch(EventsRealtimeDatabaseUrl + "events.json")
 		.then((res) => res.json())
 		.then((res) => Object.values(res))
 };
 
-const getFeaturedEvents = () => {
+const getFeaturedEvents = async () => {
   return await getEvents()
 };
 
-const getEventBySlug = (slug) => {
-  return DUMMY_EVENTS.find((event) => event.slug === slug);
+const getEventById = async (id) => {
+  return await fetch(EventsRealtimeDatabaseUrl + "events.json")
+		.then((res) => res.json())
+		.then((res) => res[id])
 };
 
 function getFilteredEvents(dateFilter) {
@@ -27,4 +29,4 @@ function getFilteredEvents(dateFilter) {
   return filteredEvents;
 }
 
-export { getEvents, getFilteredEvents, getFeaturedEvents, getEventBySlug };
+export { getEvents, getFilteredEvents, getFeaturedEvents, getEventById };
