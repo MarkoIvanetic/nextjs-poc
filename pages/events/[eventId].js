@@ -25,7 +25,6 @@ const EventDetailPage = ({event}) => {
 }
 
 export async function getStaticProps(context) {
-    console.log("Rerendered! = ", context.params)
 
 	const event = await getEventById(context.params.eventId)
 

@@ -32,8 +32,6 @@ const EventsPage = ({ featuredEvents }) => {
 export async function getStaticProps() {
 	const featuredEvents = await getEvents()
 
-	console.log(featuredEvents)
-
 	return {
 		props: {
 			featuredEvents,

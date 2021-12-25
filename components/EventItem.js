@@ -14,7 +14,7 @@ const EventItem = ({ event }) => {
 		month: 'long',
 		year: 'numeric',
 	})
-	console.log(event.image);
+
 	return (
 		<li className={classes.item}>
 			<img src={'/' + event.image} alt={event.title} />

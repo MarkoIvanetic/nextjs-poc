@@ -1,39 +1,45 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { getFilteredEvents } from "../../utils/data";
+import React from 'react'
+import { useRouter } from 'next/router'
+import { getFilteredEvents } from '../../utils/firebase'
 
-import EventList from "../../components/EventList";
+import EventList from '../../components/EventList'
 
-const PortfolioListPage = () => {
-  const router = useRouter();
-  // const id = router?.query?.eventId || "..."
+function formatParams(paramsArr) {
+	const filteredYear = parseInt(paramsArr[0])
+	const filteredMonth = parseInt(paramsArr[1])
 
-  const filterData = router?.query?.path;
+	if (paramsArr.length > 2) {
+		console.warn('Extra query params not supported! Expected 1 or 2, found: ' + paramsArr.length)
+	}
 
-  if (!filterData) {
-    return <p>Loading...</p>;
-  }
+	if (isNaN(filteredYear) || isNaN(filteredMonth)) {
+		throw new Error('Invalid filter, please adjust your values! Could not convert items from ' + JSON.stringify(paramsArr) + ' to string!')
+	}
 
-  const [filteredYear, filteredMonth] = filterData;
+	return {
+		filteredYear,
+		filteredMonth
+	}
+}
 
-  const numYear = +filteredYear;
-  const numMonth = +filteredMonth;
+const PortfolioListPage = ({ filteredEvents }) => {
+	return (
+		<div>
+			<h3>Filtered events</h3>
+			{filteredEvents?.length > 0 ?? <p>No events found!</p>}
+			<EventList events={filteredEvents} />
+		</div>
+	)
+}
 
-  if (isNaN(numYear) || isNaN(numMonth)) {
-    return <p>Invalid filter, please adjust your values!</p>;
-  }
+export async function getServerSideProps(context) {
+	const { filteredYear, filteredMonth } = formatParams(context.params.path)
 
-  const filteredEvents = getFilteredEvents({year:numYear, month:numMonth})
+	const filteredEvents = await getFilteredEvents({ filteredYear, filteredMonth })
 
-  console.log(filteredEvents);
+	return {
+		props: { filteredEvents }
+	}
+}
 
-  return (
-    <div>
-      <h3>Filtered events</h3>
-      {filteredEvents?.length > 0 ?? <p>No events found!</p>}
-      <EventList events={filteredEvents} />
-    </div>
-  );
-};
-
-export default PortfolioListPage;
+export default PortfolioListPage

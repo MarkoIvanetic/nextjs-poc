@@ -1,32 +1,29 @@
 const EventsRealtimeDatabaseUrl = 'https://nextjs-9fc15-default-rtdb.europe-west1.firebasedatabase.app/'
 
-const getEvents = async () => {
+const fetchEvents = async () => {
   return await fetch(EventsRealtimeDatabaseUrl + "events.json")
 		.then((res) => res.json())
-		.then((res) => Object.values(res))
 };
 
-const getFeaturedEvents = async () => {
-  return await getEvents()
+const getEvents = async () => {
+  return await fetchEvents().then((res) => Object.values(res))
 };
 
 const getEventById = async (id) => {
-  return await fetch(EventsRealtimeDatabaseUrl + "events.json")
-		.then((res) => res.json())
-		.then((res) => res[id])
+  return await fetchEvents().then((res) => res[id])
 };
 
-function getFilteredEvents(dateFilter) {
-  const { year, month } = dateFilter;
+const getFilteredEvents = async (dateFilter) => {
+  const events = await getEvents()
 
-  let filteredEvents = DUMMY_EVENTS.filter((event) => {
+  const { filteredYear, filteredMonth } = dateFilter;
+
+  return events.filter((event) => {
     const eventDate = new Date(event.date);
     return (
-      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+      eventDate.getFullYear() === filteredYear && eventDate.getMonth() === filteredMonth - 1
     );
   });
+};
 
-  return filteredEvents;
-}
-
-export { getEvents, getFilteredEvents, getFeaturedEvents, getEventById };
+export { getEvents, getFilteredEvents, getEventById };
