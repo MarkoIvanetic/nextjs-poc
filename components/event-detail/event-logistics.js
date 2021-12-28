@@ -1,34 +1,36 @@
-import AddressIcon from '../icons/address-icon';
-import DateIcon from '../icons/date-icon';
-import LogisticsItem from './logistics-item';
-import classes from './event-logistics.module.css';
+import Image from 'next/image'
 
-function EventLogistics({event}) {
-  const { date, location, image, imageAlt } = event;
+import AddressIcon from '../icons/address-icon'
+import DateIcon from '../icons/date-icon'
+import classes from './event-logistics.module.css'
+import LogisticsItem from './logistics-item'
 
-  const humanReadableDate = new Date(date).toLocaleDateString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+function EventLogistics({ event }) {
+    const { date, location, image, imageAlt } = event
 
-  const addressText = location.replace(', ', '\n');
+    const humanReadableDate = new Date(date).toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    })
 
-  return (
-    <section className={classes.logistics}>
-      <div className={classes.image}>
-        <img src={`/${image}`} alt={imageAlt} />
-      </div>
-      <ul className={classes.list}>
-        <LogisticsItem icon={DateIcon}>
-          <time>{humanReadableDate}</time>
-        </LogisticsItem>
-        <LogisticsItem icon={AddressIcon}>
-          <address>{addressText}</address>
-        </LogisticsItem>
-      </ul>
-    </section>
-  );
+    const addressText = location.replace(', ', '\n')
+
+    return (
+        <section className={classes.logistics}>
+            <div className={classes.image}>
+                <Image src={`/${image}`} alt={imageAlt} width={160} height={160} />
+            </div>
+            <ul className={classes.list}>
+                <LogisticsItem icon={DateIcon}>
+                    <time>{humanReadableDate}</time>
+                </LogisticsItem>
+                <LogisticsItem icon={AddressIcon}>
+                    <address>{addressText}</address>
+                </LogisticsItem>
+            </ul>
+        </section>
+    )
 }
 
-export default EventLogistics;
+export default EventLogistics
