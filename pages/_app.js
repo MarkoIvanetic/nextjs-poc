@@ -1,11 +1,13 @@
 import '../styles/globals.css'
-// import '../styles/reset.css'
+import { SWRConfig } from 'swr'
 import Layout from '../components/layout/layout'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, fallback }) {
 	return (
 		<Layout>
-			<Component {...pageProps} />
+			<SWRConfig value={{ provider: () => new Map() }}>
+				<Component {...pageProps} />
+			</SWRConfig>
 		</Layout>
 	)
 }

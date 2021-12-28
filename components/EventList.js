@@ -14,4 +14,8 @@ const EventList = ({ events }) => {
 	)
 }
 
+EventList.defaultProps = {
+  events: []
+};
+
 export default EventList

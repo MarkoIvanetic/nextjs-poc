@@ -1,42 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getEvents } from '../../utils/data'
-import EventList from '../../components/EventList'
+import useSWR, { SWRConfig, useSWRConfig } from 'swr'
+
 import EventSearch from '../../components/event-detail/event-search'
-import useSWR from 'swr'
+import EventList from '../../components/EventList'
+import { getEvents } from '../../utils/firebase'
 
-const EventsPage = ({ featuredEvents }) => {
+const EventsPage = ({ events }) => {
+    const { data } = useSWR('api/events', () => getEvents(), { fallbackData: events })
 
-  const { data = featuredEvents, error, isValidating} = useSWR("events", () => getEvents())
+    const router = useRouter()
 
-	const router = useRouter()
+    function findEventHadler(year, month) {
+        const fullPath = `/events/${year}/${month}`
+        router.push(fullPath)
+    }
 
-	function findEventHadler(year, month) {
-		const fullPath = `/events/${year}/${month}`
-		router.push(fullPath)
-	}
-
-  if (isValidating) {
-    return <span>Loading...</span>
-  }
-
-	return (
-		<>
-			<EventSearch onSearch={findEventHadler} />
-			<EventList events={data} />
-		</>
-	)
+    return (
+        <>
+            <Head>
+                <title>NextJS Events</title>
+            </Head>
+            <EventSearch onSearch={findEventHadler} />
+            <EventList events={data} />
+        </>
+    )
 }
 
 export async function getStaticProps() {
-	const featuredEvents = await getEvents()
+    const events = await getEvents()
 
-	return {
-		props: {
-			featuredEvents,
-		},
-	}
+    return {
+        props: {
+            events
+        },
+        revalidate: 60
+    }
 }
 
 export default EventsPage
